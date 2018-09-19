@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package>
+  <System>
+    <KeymanDeveloperVersion>10.0.1201.0</KeymanDeveloperVersion>
+    <FileVersion>7.0</FileVersion>
+  </System>
+  <Options>
+    <ExecuteProgram></ExecuteProgram>
+    <GraphicFile>ipaWE.ico</GraphicFile>
+    <MSIFileName></MSIFileName>
+    <MSIOptions></MSIOptions>
+  </Options>
+  <StartMenu>
+    <Folder></Folder>
+    <Items/>
+  </StartMenu>
+  <Info>
+    <Name URL="">IPAKeyboard</Name>
+    <Version URL="">1.0</Version>
+    <Copyright URL="">©2018 Kris Peters</Copyright>
+    <Author URL="">Kris Peters</Author>
+  </Info>
+  <Files>
+    <File>
+      <Name>IPAKeyboard.kmn</Name>
+      <Description>File IPAKeyboard.kmn</Description>
+      <CopyLocation>0</CopyLocation>
+      <FileType>.kmn</FileType>
+    </File>
+    <File>
+      <Name>ipaWE.ico</Name>
+      <Description>File ipaWE.ico</Description>
+      <CopyLocation>0</CopyLocation>
+      <FileType>.ico</FileType>
+    </File>
+  </Files>
+  <Keyboards/>
+  <Strings/>
+</Package>

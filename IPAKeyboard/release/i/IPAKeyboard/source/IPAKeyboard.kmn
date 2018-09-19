@@ -1,0 +1,909 @@
+﻿c IPA Keyboard for Keyman 10.0
+c
+c This keyboard program uses a series of mnemonic dead keys to write all the IPA characters
+c as well as a variety of other symbols
+c
+store(&Version) "10.0"             c This keyboard is for use with Keyman 10.0
+store(&Name)    "IPA Keyboard"
+store(&KEYBOARDVERSION) '1.0'
+store(&COPYRIGHT) '© 2018 Kris Peters'
+store(&BITMAP) 'ipaWE.ico'
+store(&MnemonicLayout) "1"        c This keyboard uses a mnemonic layout.
+store(&TARGETS) 'Windows'
+
+
+begin Unicode > use(Main)
+
+group(main) using keys
+
+c General Input Characters
+store(BaseCharacters)'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+store(BaseVowels) 'aeiouAEIOU'
+store(BaseLCaseCharacters)'abcdefghijklmnopqrstuvwxyz'
+store(BaseNumbers) '0123456789'
+store(HelpTone) '1 - Tone Letters, 2 - Tone Diacritics, 3 - Tone Arrows, 4 - UPA Tone Brackets' 
+store(HelpNumbers) ' l - Latin Numerals, m - Maya Numerals, r - Counting Rod Numerals, s - Siyaq Numerals, d - Devanagari Numerals'
+store(No) '0'
+store(Tone) '0'
+store(Ties) deadkey(Tie)
+c ---
+store(TildeLetters) outs(BaseVowels) 'nNvVyY' 'âÂăĂêÊơƠōŌóÓöÖôÔưƯúÚ' 
+    store(Tilde) 'ãẽĩõũÃẼĨÕŨñÑṽṼỹỸ' 'ẫẪẵẴễỄỡỠȭȬṍṌṏṎỗỖữỮṹṸ'
+store(GraveLetters) outs(BaseVowels) 'nNwWyYrR' 'ăĂâÂêÊēĒôÔōŌơƠưƯüÜ'    
+    store(GraveVowels) 'àèìòùÀÈÌÒÙ'
+    store(DblGraveVowels) 'ȁȅȉȍȕȀȄȈȌȔ'
+    store(Grave) 'àèìòùÀÈÌÒÙǹǸẁẀỳỲȑȐ' 'ằẰầẦềỀḕḔồỒṑṐờỜừỪǜǛ'                                                                                        
+store(RingLetters) 'aAuUwy' 'áÁ'
+    store(Ring) 'åÅůŮẘẙ' 'ǻǺ'
+store(RingBelowLetters) 'aA'
+    store(RingBelow) 'ḁḀ'            
+store(AcuteLetters) outs(BaseCharacters) 'óÓúÚ' 'æÆøØ' 'åÅâÂăĂçÇêÊēĒïÏôÔōŌơƠõÕṡṠưƯüÜũŨ'        
+    store(Acute) 'ábćdéfǵhíjḱĺḿńóṕqŕśtúvẃxýźÁBĆDÉFǴHÍJḰĹḾŃÓṔQŔŚTÚVẂXÝŹ' 'őŐűŰ' 'ǽǼǿǾ' 'ǻǺấẤắẮḉḈếẾḗḖḯḮốỐṓṒớỚṍṌṥṤứỨǘǗṹṸ'
+store(CircumflexLetters) outs(BaseVowels) 'cCgGhHjJsSwWyYzZ' 'áÁàÀảẢãÃạẠéÉèÈẻẺẽẼẹẸóÓòÒỏỎõÕọỌ'          
+    store(Circumflex) 'âêîôûÂÊÎÔÛ' 'ĉĈĝĜĥĤĵĴŝŜŵŴŷŶẑẐ' 'ấẤầẦẩẨẫẪậẬếẾềỀểỂễỄệỆốỐồỒổỔỗỖộỘ' 
+store(DotLetters) outs(BaseCharacters) 'ȧėıȯüȦĖİȮÜ' 'ḣḢṫẇẆẋẊẏẎ' 'ɔƆſᴝ' 'āĀǡǠíÍōŌȱȰõÕśŚšŠṣṢùÙǔǓūŪǖǕúÚ'        
+    store(Dot) 'ȧḃċḋėḟġḣıȷkŀṁṅȯṗqṙṡṫüvẇẋẏżȦḂĊḊĖḞĠḢİJKĿṀṄȮṖQṘṠṪÜVẆẊẎŻ' 'äëïöüÄËÏÖÜ' 'ḧḦẗẅẄẍẌÿŸ' 'ꜿꜾẛᴞ' 'ǡǠǟǞḯḮȱȰȫȪṏṎṥṤṧṦṩṨǜǛǚǙǖǕṻṺǘǗ'
+
+store(ToneSet) 'ldab'          
+    store(ToneType) '1234'
+    store(ToneNumbers) '1234567'
+    store(ToneLetters) U+02E5 U+02E6 U+02E7 U+02E8 U+02E9 U+02EA U+02EB
+    store(ToneManager) deadkey(tone)
+
+c ---    
+c Upper Diacritics
++ '`' > context use (TildeAbove)
+    any(Tilde) + '`' > index(TildeLetters, 1) U+034C c Almost equals 
+    U+0303 + '`' > U+034C c Almost equals
++ [ CTRL '`' ] > context use(GraveAbove)
+    any(GraveVowels) + [ CTRL '`' ] > index(DblGraveVowels, 1) c Dbl Grave
+    any(Grave) + [ CTRL '`' ] > index(GraveLetters, 1) U+030F  c Dbl Grave
+    U+0300  + [ CTRL '`' ] > U+030F c Dbl Grave
++ [ CTRL '1' ] > context U+030D  c use(LineAbove)
+    U+030D + [ CTRL '1' ] > U+030E  c Dbl Line
++ [ CTRL '2' ] > context use(RotateTransform)
++ [ CTRL '3' ] > context U+0314  c ReversedCommaAbove
++ [ CTRL '4' ] > context U+031A  c use(NotSignAbove)
++ [ CTRL '5' ] > context use(AlphabetDiacritics)
++ [ CTRL '6' ] > context use(Modifier)
++ [ CTRL '7' ] > context use(DoubleLetters)
++ [ CTRL '8' ] > context use(RingAbove)
+    any(Ring) + [ CTRL '8' ] > index(RingLetters, 1) U+1AB2  c Infinity Above
+    U+030A + [ CTRL '8' ] > U+1AB2 c Infinity Above
++ [ CTRL '9' ] > context use(BreveAbove)
++ [ CTRL '0' ] > context use(InvertedBreveAbove)
++ [ CTRL SHIFT '-' ] > context  U+0320 c e(MinusBelow)
+    U+0320 + [ CTRL SHIFT '-'] > U+0347 c Equals Below  
++ [ CTRL SHIFT '=' ] > context  U+031F  c use(PlusBelow)
+c [
++ [ CTRL ']' ] > context U+0346 c use(BridgeAbove)
++ [ CTRL '\' ] > context use(MacronAbove)
++ [ CTRL ';' ] > context  U+0313  c use(CommaAbove)
++ [ CTRL "'" ] > context use(AcuteAbove)
++ [ CTRL ',' ] > context use(HookAbove)
++ [ CTRL '.' ] > context use(DotAbove)
++ [ CTRL '/' ] > context use(GreekTransform)  
+
+c Lower Diacritics
++ [ CTRL SHIFT '`' ] > context U+0316  c use(GraveBelow)
++ [ CTRL SHIFT '1' ] > context  U+0329 c use(LineBelow)
+U+0329 + [ CTRL SHIFT '1' ] >  U+0348 
++ [ CTRL SHIFT '2' ] > context use(FlipTransform)
++ [ CTRL SHIFT '3' ] > context  U+033C c use(SeagullBelow)
++ [ CTRL SHIFT '4' ] > context  U+0349 c use(NotSignBelow)
++ [ CTRL SHIFT '5' ] > context use(AlphabetDiacriticsBelow)
++ [ CTRL SHIFT '6' ] > context use(SubScript)
++ [ CTRL SHIFT '7' ] > context U+033B  c use(SquareBelow)
++ [ CTRL SHIFT '8'  ] > context use(RingBelow)
+    any(RingBelow) + [ CTRL SHIFT '8' ] > index(RingBelowLetters, 1) U+035A  c Double Ring Below  
+    U+0325 + [ CTRL SHIFT '8' ] >  U+035A  c Double Ring Below
++ [ CTRL SHIFT '9' ] > context use(BreveBelow)
++ [ CTRL SHIFT '0' ] > context  U+032F  c se(InvertedBreveBelow) NOT WORKING
++ [ CTRL SHIFT '-' ] > context U+0318 c use(LeftTackBelow)
++ [ CTRL SHIFT '=' ] > context  U+0319  c use(RightTackBelow)
++ [ CTRL SHIFT '[' ] > context  U+033A  c use(InvertedBridgeBelow)
++ [ CTRL SHIFT ']' ] > context  U+032A c use(BridgeBelow)
++ [ CTRL SHIFT '\' ] > context use(MacronBelow)
++ [ CTRL SHIFT ';' ] > context use(CommaBelow)
++ [ CTRL SHIFT "'" ] > context  U+0317 
++ [ CTRL SHIFT ',' ] > context use(CedillaBelow)
++ [ CTRL SHIFT '.' ] > context use(DotBelow)
++ [ CTRL SHIFT '/' ] > context use(EuropeanTransform)
+ 
+c Transformations With Alt 
++ [ CTRL ALT '`' ] > context use(TildeBelow)
+    U+0330 + [ CTRL ALT '`' ] >  U+1DFD
++ [ CTRL ALT '1' ] > context use(ClickTransform)
++ [ CTRL ALT '2' ] > context use(CurlTransform)
+'l' + [ CTRL ALT '3' ] > set(No = '1')
+    'm' + [ CTRL ALT '3' ] > set(No = '2')
+    'r' + [ CTRL ALT '3' ] > set(No = '3')
+    's' + [ CTRL ALT '3' ] > set(No = '4')
+    'd' + [ CTRL ALT '3' ] > set(No = '5')
+    if(No = '1') + [ CTRL ALT '3' ] > context use(LatinNumberTransform)
+    if(No = '2') + [ CTRL ALT '3' ] > context use(MayanNumberTransform)
+    if(No = '3') + [ CTRL ALT '3' ] > context use(CountingRodNumberTransform)
+    if(No = '4') + [ CTRL ALT '3' ] > context use(SiyaqNumberTransform)
+    if(No = '5') + [ CTRL ALT '3' ] > context use(DevanagariNumberTransform)
+    'h' + [ CTRL ALT '3' ] > outs(HelpNumbers) 
++ [ CTRL ALT '4' ] > context use(Currency)
+c 5
+c 6
++ [ CTRL ALT '7'] > outs(Ties)
+    outs(Ties) + '`' > U+0360  c Dbl Tilde
+    outs(Ties) + [ CTRL '9' ] >  U+035D  c Dbl Breve
+    outs(Ties) + [ CTRL SHIFT '9' ] >  U+035C   c Dbl Breve Below
+    outs(Ties) + [ CTRL '0' ] >  U+0361  c Dbl Inverted  Breve
+    outs(Ties) + [ CTRL '\' ] >  U+035E  c Dbl Macron > 
+    outs(Ties) + [ CTRL SHIFT '\' ] >  U+035F  c Dbl Macron Below>  
+    outs(Ties) + [ CTRL ALT '.' ] >  U+1DCD  c Dbl Circumflex
+
+c 8
++ [ CTRL ALT '9' ] > context U+0351 c use(LeftRingAbove)
++ [ CTRL ALT '0' ] > context use(RightRingAbove) 
++ [ CTRL ALT '-' ] > context  c use(DownTackBelow)
++ [ CTRL ALT '=' ] > context U+1DF5 c use(UpTackAbove)
++ [ CTRL ALT '[' ] > context use(HookTransform)
++ [ CTRL ALT ']' ] > context use(DescenderTransform)
++ [ CTRL ALT '\' ] > context use(StrokeThrough)
++ [ CTRL ALT ';' ] > context use(HornTransform)
++ [ CTRL ALT "'" ] > context use(BarTransform)
++ [ CTRL ALT ',' ] > context use(CaronAbove)
++ [ CTRL ALT '.' ] > context use(CircumflexAbove)
+    any(Circumflex) + [ CTRL ALT '.' ] > index(CircumflexLetters, 1)  U+1AB0  c Double Circumflex  
+    U+0302 + [ CTRL ALT '.' ] >  U+1AB0  c Double Circumflex  
++ [ CTRL ALT '/' ] > context use(GaelicTransform)
+c + [ CTRL ALT K_X] > context U+0310   TO BE ADDED
+
+c Transformations With Alt and Shift
++ [ CTRL SHIFT ALT '`' ] > context use(MiddleTildeTransform)
+'l' + [ CTRL SHIFT ALT '1' ] > set(Tone = '1') save(Tone)
+'d' + [ CTRL SHIFT ALT '1' ] > set(Tone = '2') save(Tone)
+'a' + [ CTRL SHIFT ALT '1' ] > set(Tone = '3') save(Tone)
+'b' + [ CTRL SHIFT ALT '1' ] > set(Tone = '4') save(Tone)
+    if(Tone = '1') + [ CTRL SHIFT ALT '1' ] > outs(ToneManager) c context use(ToneLetterTransform)
+        outs(ToneManager) any(ToneNumbers) + [ CTRL SHIFT ALT '1' ] > index(ToneLetters, 2)
+        outs(ToneManager) any(ToneNumbers) any(ToneNumbers) + [ CTRL SHIFT ALT '1' ] > index(ToneLetters, 2) index(ToneLetters, 3)
+        outs(ToneManager) any(ToneNumbers) any(ToneNumbers) any(ToneNumbers) + [ CTRL SHIFT ALT '1' ] > index(ToneLetters, 2) index(ToneLetters, 3) index(ToneLetters, 4)
+    if(Tone = '2') + [ CTRL SHIFT ALT '1' ] > context use(ToneDiacriticTransform)
+    if(Tone = '3') + [ CTRL SHIFT ALT '1' ] > context use(ToneArrowTransform)
+    if(Tone = '4') + [ CTRL SHIFT ALT '1' ] > context use(ToneBracketTransform)
+    'h' + [ CTRL SHIFT ALT '1' ] > outs(HelpTone)
+c 2
++ [ CTRL SHIFT ALT '3' ] > context  U+032B c use(InvertedSeagullBelow)
+c 4
+c 5
++ [ CTRL SHIFT ALT '6' ] > context use(SmallCapsTransform)
+c 7 
+c 8
++ [ CTRL SHIFT ALT '9' ] > context U+031C c use(LeftRingBelow)
++ [ CTRL SHIFT ALT '0' ] > context U+0339 c use(RightRingBelow) 
++ [ CTRL SHIFT ALT '-' ] > context  U+031E c use(DownTackBelow)
++ [ CTRL SHIFT ALT '=' ] > context  U+031D c use(UpTackBelow)
++ [ CTRL SHIFT ALT '[' ] > context use(RetroflexTransform)
++ [ CTRL SHIFT ALT ']' ] > context use(PalatalTransform)
+c \
++ [ CTRL SHIFT ALT ';' ] > context use(OgonekTransform)
+c '
++ [ CTRL SHIFT ALT ',' ] > context  U+032C c use(CaronBelow)
++ [ CTRL SHIFT ALT '.' ] > context  use(CircumflexBelow)
++ [ CTRL SHIFT ALT '/' ] > context use(EuropeanTransform)
+
+c --- GROUPS ---
+
+c `~ BKQUOTE: Tilde, Grave, Tilde Below, Grave Below, Middle Tilde, DblGrave, DblGraveBelow
+group (TildeAbove)
+    any(TildeLetters) > index(Tilde, 1)
+    notany(Tilde) > context(1) U+0303 
+
+group (GraveAbove)
+    any(GraveLetters) > index(Grave, 1)
+    notany(Grave) > context U+0300   c Need to figure out double grave logic
+    U+0308 > U+1DC0 c Dotted Grave
+    any(Dot) > index(DotLetters, 1) U+1DC0 c Dotted Grave
+    
+group (TildeBelow)
+    store(TildeBelowLetters) 'eEiIuU'
+    store(TildeBelow) 'ḛḚḭḬṵṴ'
+    any(TildeBelowLetters) > index(TildeBelow, 1)
+    notany(TildeBelowLetters) > context(1)  U+0330       
+
+group (MiddleTildeTransform)
+    store(MiddleTildeLetters) 'bdflLmnoOprstzɾɫ'
+    store(MiddleTilde) 'ᵬᵭᵮɫⱢᵯᵰɵƟᵱᵲᵴᵵᵶᵳꬸ'
+    any(MiddleTildeLetters) > index(MiddleTilde, 1) 
+    notany(MiddleTilde) > context(1)  U+0334 
+
+c 1! K_1: Line, Line Below, Clicks AND Tones
+group (ClickTransform)                                                       
+    store(ClickLetters) 'pom' 'fiv' 't!dc' 'k' 'l'
+    store(Click) 'ʘʘꬺ' 'ǀǀʇ' 'ǃǃʗʗ' 'ǂ' 'ǁ' 
+    any(ClickLetters) > index(Click, 1)
+
+group (ToneDiacriticTransform)
+    store(ToneDiacriticNumbers) '12345'
+    store(ToneDiacritics) U+030B U+0301 U+0304 U+0300 U+030F
+    any(ToneDiacriticNumbers) > index(ToneDiacritics, 1)
+    '13' > U+1DC7
+    '15' > U+0302
+    '31' > U+1DC4
+    '35' > U+1DC6
+    '51' > U+030C 
+    '53' > U+1DC5
+    '315' > U+1DC8
+    '351' > U+1DC9
+
+group (ToneArrowTransform)
+    store(ToneArrowNumbers) '1234'
+    store(ToneDiacritics) 'ꜛꜜ↗↘'
+    any(ToneArrowNumbers) > index(ToneDiacritics, 1)
+
+group (ToneBracketTransform)
+    store(ToneBracketNumbers) '123456{}[]'
+    store(ToneBrackets) '˹˺˻˼꜠꜡˹˺˻˼'
+    any(ToneBracketNumbers) > index(ToneBrackets, 1)
+
+c 2@ K_2: Rotate, CurlTransform  
+group (RotateTransform)
+    store(TurnedLetters) outs(BaseLCaseCharacters) 'ACEFGIKLMTVY' 'ɑæɤⱭẟɛʚɞᴇꜰᵹꝽɩᴍꭐœʀɺɽʆʊ' '?!ʔʡ'
+    store(Turned) 'ɐqɔpəɟᵷɥᴉjʞꞁɯuodbɹsʇnʌʍxʎz' 'ⱯƆƎℲ⅁ꟾꞰꞀꟽꞱɅ⅄' 'ꭤᴂᴥⱰƍɜɞʚⱻⅎꝿꝾ℩ꟺꭑᴔʁɼⱹƪꭥ' '¿¡ʖƾ'
+    any(TurnedLetters) > index(Turned, 1)  
+
+group (FlipTransform)
+    store(FlipLetters) 'ceFILmNoPsSu' 'ɑⱭɛᶓʚɞɴøɾʀꭇꭉʃüʒƷ' 'ᵘ' '?ʔʡ+-÷′″‴¶' 
+    store(Flip) 'ᴒɘꟻꟷ⅃ᴟͶᴑꟼƨƧᴝ' 'ɒⱰɜᶔɷɷᴎᴓɿᴙꭋꭌʅᴞƹƸ' 'ᵙ' 'ʕʕʢ×÷⁒‵‶‷⁋'   
+    any(FlipLetters) > index(Flip, 1)	
+
+group (CurlTransform) 
+    store(CurlLetters) outs(BaseLCaseCharacters) 'BJOPSXYZ' 'ʣȴꬻȵŋꝍꝓꝒꭉꭊꭋʃʅꭗχʑʒ' 'ʲᶻ'
+    store(Curl) 'aꞗɕȡꬴfꬶhiʝkȴꬺꬻꝍꝓqꭉȿȶꭒⱴwꭖỿʑ' 'ꞖꞲꝌꝒⱾꭘỾⱿ' 'ʥꬹȵꬼꬼⱺꝕꝔꭊꭌꭌʆƪꭘꭔɀʓ' 'ᶨᶽ'
+    any(CurlLetters) > index(Curl, 1)
+     
+c 3# K_3: Reversed Comma Above, Seagull Below, Numbers, Inverted Seagull Below
+group (LatinNumberTransform)
+    store(LatinNumerals) '0ⅠⅡⅢⅣⅤⅥⅦⅧⅨ'
+    any(BaseNumbers) > index(LatinNumerals, 1)
+    '10' > 'Ⅹ'
+    '11' > 'Ⅺ'
+    '12' > 'Ⅻ'
+    '50' > 'Ⅼ'
+    '100' > 'Ⅽ'               
+    '500' > 'Ⅾ'
+    '1000' > 'Ⅿ'
+group (MayanNumberTransform) 
+    store(MayanNumerals) '𝋠𝋡𝋢𝋣𝋤𝋥𝋦𝋧𝋨𝋩'
+    any(BaseNumbers) > index(MayanNumerals, 1)
+    '10' > '𝋪'
+    '11' > '𝋫'
+    '12' > '𝋬'
+    '13' > '𝋭'
+    '14' > '𝋮'
+    '15' > '𝋯'
+    '16' > '𝋰'
+    '17' > '𝋱'
+    '18' > '𝋲'
+    '19' > '𝋳'
+group (CountingRodNumberTransform)
+    store(CountingRodNumerals) '0�𝍠𝍡𝍢𝍣𝍤𝍥𝍦𝍧𝍨'
+    any(BaseNumbers) > index(CountingRodNumerals, 1)
+    '10' > '𝍩'
+    '20' > '𝍪'
+    '30' > '𝍫'
+    '40' > '𝍬'
+    '50' > '𝍭'
+    '60' > '𝍮'
+    '70' > '𝍯'
+    '80' > '𝍰'
+    '90' > '𝍱'
+group (SiyaqNumberTransform)
+    store(SiyaqNumerals) '0𞱱𞱲𞱳𞱴𞱵𞱶𞱷𞱸𞱹'
+    any(BaseNumbers) > index(SiyaqNumerals, 1)
+    '10' > '𞱺'
+    '20' > '𞱻'
+    '30' > '𞱼'                        
+    '40' > '𞱽'
+    '50' > '𞱾'
+    '60' > '𞱿'
+    '70' > '𞲀'
+    '80' > '𞲁'
+    '90' > '𞲂'
+    '100' > '𞲃'
+    '200' > '𞲄'
+group (DevanagariNumberTransform)
+    store(DevanagariNumerals) '०१२३४५६७८९'
+    any(BaseNumbers) > index(DevanagariNumerals, 1)
+    
+c 4$ K_4:  Not Sign, Not Sign Below, Currency Symbols 
+group (Currency)
+    '*' > '¤'
+    'aes' > '�' c historical
+    'ana' > '৹' c historical
+    'AFS' > '؋'
+    'AFN' > '؋'
+    'AMD' > '֏'
+    'ARA' > '₳' c historical
+    'as' > '𐆚' c historical
+    'austral' > '₳' c historical       
+    'AZN' > '₼'
+    'BD' > '.د.ب'
+    'BDT' > '৳'
+    'BGN' > 'лв.'
+    'BHD' > '.د.ب'
+    'BRB' > '₢' c historical
+    'BTC' > '₿'
+    'cc' > '¢'
+    'CC' > '₵'
+    'CNY' > '¥'
+    'CRC' > '₡'
+    'cruzeiro' > '₢' c historical
+    'CZK' > 'Kč'
+    'DA' > 'دج'
+    'den' > 'ден'
+    'denarius' > '𐆖' c historical
+    'DH' > 'د.إ'
+    'din' > 'дин'
+    'doge' > 'Ð'
+    'dong' > '₫'
+    'dorome' > '߾' c historical
+    'drachma' > '₯' c historical
+    'dram' > '֏'
+    'DT' > 'د.ت'
+    'dupondius' > '𐆙' c historical
+    'DZD' > 'دج'
+    'ECU' > '₠' c historical 
+    'ESP' > '₧'  c historical
+    'EUR' > '€'
+    'euro' > '€'
+    'f' > 'ƒ'
+    'FF' > '₣' c historical
+    'franc' > '₣' c historical
+    'ganda' > '৻'
+    'GBP' > '£'
+    'GEL' > '₾' 
+    'guarani' > '₲'
+    'hryvnia' > '₴'
+    'II' > '𐆙' c historical
+    'IIS' > '𐆘' c historical
+    'ILS' > '₪'
+    'INR' > '₹' 
+    'IQD' > 'د.ع'
+    'IRR' > '﷼'
+    'JPY' > '¥'
+    'KD' > 'د.ك'
+    'KGS' > 'сом'
+    'KHR' > '៛'
+    'kip' > '₭'
+    'koruna' > 'Kč'
+    'KPW' > '₩'
+    'KRW' > '₩'
+    'KWD' > 'د.ك'
+    'KZT' > '₸'
+    'LAK' > '₭'
+    'lari' > '₾' 
+    'lb' > '£'
+    'lev' > 'лв.' 
+    'LD' > 'ل.د'
+    'lira' > '₺'
+    '₺' > '₤' c historical
+    'livre' > '₶' c historical
+    'LYD' > 'ل.د'
+    'manat' > '₼'
+    'mark' > '₻' c historical
+    '₻' > 'ℳ' c historical
+    'mil' > '₥'
+    'mill' > '₥'
+    'mille' > '₥'
+    'MKD' > 'ден'
+    'MNT' > '₮'
+    'naira' > '₦'
+    'NGN' > '₦'
+    'OMR' > '﷼'
+    'peseta' > '₧'  c historical
+    'PF' > '₰' c historical
+    'pfennig' > '₰' c historical
+    'PHP' > '₱'
+    'piso' > '₱'
+    'PKR' > '₨'
+    'PLN' > 'zł'
+    'PYG' > '₲'
+    'QR' > 'ر.ق'
+    'quinarius' > '𐆗' c historical
+    'reichsmark' > 'ℛℳ' c historical
+    'renminbi' > '¥'
+    'rial' > '﷼'
+    'riel' > '៛'
+    'RM' > 'ℛℳ' c historical
+    'RSD' > 'дин' 
+    'RUB' > '₽'
+    'ruble' > '₽'
+    'rupee' > '₹' 
+    '₹' > '௹'
+    '௹' > '૱'
+    '૱' > 'ರ'
+    'ರ' > 'රු'
+    'රු' > '꠸'
+    '꠸' > '৲' c historical
+    '৲' > '𞲰' c historical
+    'sesterius' > '𐆘' c historical
+    'shekel' > '₪'
+    'sheqel' > '₪'
+    'som' > 'сом'
+    'spesmilo' > '₷' c historical
+    'SR' > 'ر.س'
+    'THB' > '฿'
+    'taka' > '৳'
+    'taman' > '߿' c historical
+    'tenge' > '₸'
+    'Tk' > '৳' 
+    'TK' > '৳'
+    'TND' > 'د.ت'
+    'togrok' > '₮'
+    'TRY' > '₺'
+    'UAH' > '₴'
+    'V' > '𐆗' c historical
+    'VND' > '₫'
+    'won' > '₩'
+    'yen' > '¥'
+    'YER' > '﷼'
+    'X' > '𐆚' c historical   
+    'yuan' > '¥'
+    'zloty' > 'zł'
+    
+c 5% K_5:   Alphabetic Diacritics                                                                                                                                                         
+group (AlphabetDiacritics)                                                                            
+    store(AlphabetLetters) outs(BaseLCaseCharacters) 'GLMNR' 'ɑäæꜵꜹβçꝺðəꬸöꝛʃſüꝯ' U+033D ''  
+   	store(AlphabetAbove) U+0363 U+1DE8 U+0368 U+0369 U+0364 U+1DEB U+1DDA U+036A U+0365 'j' U+1DDC U+1DDD U+036B U+1DE0 U+0366 U+1DEE 'q' U+036C U+1DE4 U+036D U+0367 U+036E U+1DF1 U+033D 'y' U+1DE6 '' U+1DDB U+1DDE U+1DDF U+1DE1 U+1DE2 '' U+1DE7 U+1DF2 U+1DD4 U+1DD5 U+1DD6 U+1DE9 U+1DD7 U+1DD8 U+1DD9 U+1DEA U+1DEC U+1DF3 U+1DE3 U+1DEF U+1DE5 U+1DF4 U+1DD2 '' U+036F  
+   	any(AlphabetLetters) > index(AlphabetAbove, 1)
+   	'()' > U+1ABB 
+   	'(())' > U+1ABC 
+   	c  U+1DD1 -UR   U+1DD3  -Flat A          U+1DED -o   U+1DF0  -u    
+                                                                                                                                                                                                                                                                                                                                   
+group (AlphabetDiacriticsBelow)
+    store(AlphabetBelowLetters) 'rx' 'ꝭ' U+0353
+   	store(AlphabetBelow) U+1DCA U+0353 U+1DD0 U+1AB5 
+   	any(AlphabetBelowLetters) > index(AlphabetBelow, 1)
+   	'()' > U+1ABD 
+
+   	
+c 6^ K_6: Superscript, Subscript, SmallCaps
+group (Modifier)
+   	store(ModifierLetters) outs(BaseCharacters) outs(BaseNumbers) 'ɐɑɒᴥᴂÆβɃᴃɕꝯꝮẟðəɛɜƎɸᶲɡɣɥɦꜧĦᴉɨɩɪᵻƗɟʝɭᶅꬷꬸʟɱɯɰŋɲɳɴͶɵɔᴖᴗœȣȢɹʳɻᴿʁʀʂʃƫθʉʊᴜᴝꭒʋʌχʐʑʒ' "ʔʕ'ʾ!¡.+-=()"
+   	store(Modifiers) 'ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖqʳˢᵗᵘᵛʷˣʸᶻᴬᴮCᴰᴱFᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿSᵀᵁⱽᵂXYZ' '⁰¹²³⁴⁵⁶⁷⁸⁹' 'ᵄᵅᶛᵜᵆᴭᵝᴯᴯᶝꝰꝰᵟᶞᵊᵋᶟᴲᶲᵠᶢˠᶣʱꭜꟸᵎᶤᶥᶦᶧᶧᶡᶨᶩᶪꭝꭞᶫᶬᵚᶭᵑᶮᶯᶰᴻᶱᵓᵔᵕꟹᴽᴽʴʴʵʶʶʶᶳᶴᶵᶿᶶᶷᶸᵙꭟᶹᶺᵡᶼᶽᶾ' 'ˀˁʾʿꜝꜞ°⁺⁻⁼⁽⁾'
+   	any(ModifierLetters) > index(Modifiers, 1)
+    'a/' > 'ª'
+    'o/' > 'º'
+    'st/' > 'ˢᵗ'
+    'rd/' > 'ʳᵈ'
+    'nd/' > 'ⁿᵈ'
+    'th/' > 'ᵗʰ'
+    'No' > '№'
+    ')(' > '꭛'
+    '()' > '꭛'
+    '.C' > '℃'
+    '.F' > '℉'
+
+group (Subscript)
+    store(SubscriptLetters) 'aehijklmnoprstuvx' outs(BaseNumbers) 'βəɸɣρχ' '¡+-=().'
+    store(Subscripts) 'ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ' '₀₁₂₃₄₅₆₇₈₉' 'ᵦₔᵩᵧᵨᵪ' 'ꜟ₊₋₌₍₎·'
+    any(SubscriptLetters) > index(Subscripts, 1)
+    '()' > U+1ABE 
+                              
+group (SmallCapsTransform)
+    store(SmallCapsLetters) outs(BaseCharacters) 'ÆæɃƉĐÐƎℲɣƔɫłŁꟽͶƆoΩŒȣπΠψΨπΠɹρΡƨƧλΛɅʒ' 'ɑɒəɛɜɡɥɪɩɯω' '?ʔɁƼ'
+    store(LargeLCase) 'ⱭⱰƏƐꞫꞬꞍꞮƖƜꞶ'    
+    store(SmallCaps) 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡXʏᴢᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡXʏᴢ' 'ᴁᴁᴃᴆᴆᴆⱻⅎᴦᴦᴌᴌᴌꟺᴎᴐᴑꭥɶᴕᴨᴨᴪᴪᴨᴨᴚᴩᴩᴤᴤᴧᴧᴧᴣ' outs(LargeLCase) 'ɂɂɂƽ'
+    any(SmallCapsLetters) > index(SmallCaps, 1)
+    
+c 7& K_7: Double Letters, Square Below
+group (DoubleLetters)
+    'ae' > 'æ'
+    'AE' > 'Æ'
+    'aə' > 'ꬱ'
+    'AA' > 'Ꜳ'
+    'aa' > 'ꜳ'
+    'AO' > 'Ꜵ'
+    'ao' > 'ꜵ'
+    'AU' > 'Ꜷ'
+    'au' > 'ꜷ'
+    'AV' > 'Ꜹ'
+    'av' > 'ꜹ'
+    'AY' > 'Ꜽ'
+    'ay' > 'ꜽ'
+    "a'" > 'ꜥ'
+    "A'" > 'Ꜥ'
+    'ɔe' > 'ꭢ'
+    'cl' > '℄'
+    'CL' > '℄'
+    'con' > 'ꝯ'
+    'CON' > 'Ꝯ'           
+    'ɔo' > 'ꭃ'
+    'co' > 'ꭃ'
+    'ɔø' > 'ꭄ'
+    'cø' > 'ꭄ'
+    '(c)' > '©'
+    'db' > 'ȸ'
+    'dum' > 'ꝱ'
+    'DZ' > 'Ǳ'
+    'Dz' > 'ǲ'
+    'dz' > 'ʣ'
+    'dʒ' > 'ʤ'
+    'dʑ' > 'ʥ'
+    'DŽ' > 'Ǆ'
+    'Dž' > 'ǅ'
+    'dž' > 'ǆ'
+    'el' > 'ꝉ'
+    'El' > 'Ꝉ'
+    'EL' > 'Ꝉ'
+    'əɵ' > 'ꭂ'
+    'əø' > 'ꭁ'
+    'et' > 'ꝫ'
+    'ET' > 'Ꝫ'
+    'fax' > '℻'
+    'FAX' > '℻'
+    'fn' > 'ʩ'
+    'hm' > 'ɰ'
+    'mh' > 'ɰ'
+    'uh' > 'ɰ'
+    'hv' > 'ƕ'
+    'HV' > 'Ƕ'
+    'ɪe' > 'ꭡ'
+    'ij' > 'ĳ'
+    'IJ' > 'Ĳ'
+    'is' > 'ꝭ'           
+    'IS' > 'Ꝭ'
+    'kal' > 'ꝃ'
+    'Kal' > 'Ꝃ'
+    'KAL' > 'Ꝃ'
+    'karta' > 'ꝅ'
+    'Karta' > 'Ꝅ'
+    'KARTA' > 'Ꝅ'
+    'kulu' > 'ꝁ'
+    'Kulu' > 'Ꝁ'
+    'KULU' > 'Ꝁ'
+    "k'" > 'ꜭ'
+    "K'" > 'Ꜭ'
+    'ls' > 'ʪ'
+    'LJ' > 'Ǉ'
+    'Lj' > 'ǈ'
+    'lj' > 'ǉ' 
+    'll' > 'ꝇ'
+    'LL' > 'Ꝇ'
+    'ꝇ' > 'ỻ'
+    'Ꝇ' > 'Ỻ'
+    'lum' > 'ꝲ'
+    'lz' > 'ʫ'
+    'lʒ' > 'ɮ'
+    'ni' > 'ꭑ'
+    'ui' > 'ꭐ'
+    'mum' > 'ꝳ'
+    'mu' > 'µ'          
+    'mw' > 'ꟿ'
+    'NJ' > 'Ǌ'
+    'Nj' > 'ǋ'
+    'nj' > 'ǌ'
+    'num' > 'ꝴ'
+    "'n" > 'ŉ'
+    'obiit' > 'ꝋ'
+    'Obiit' > 'Ꝋ'
+    'OBIIT' > 'Ꝋ'
+    'OE' > 'Œ'
+    'ᴏᴇ' > 'ɶ'
+    'oe' > 'œ'
+    'oə' > 'ꭀ'
+    'OI' > 'Ƣ'
+    'oi' > 'ƣ'
+    'os' > 'ꝰ'
+    'OU' > 'Ȣ'
+    'ou' > 'ȣ'
+    'OO' > 'Ꝏ'
+    'oo' > 'ꝏ'
+    'ounce' > '℥'
+    'oz' > '℥'
+    "p'" > 'ꝑ'
+    "P'" > 'Ꝑ'
+    "per" > '⅌'
+    "Per" > 'Ꝑ'
+    "PER" > 'Ꝑ'
+    'pl' > '⅊'
+    'PL' > '⅊'
+    'planck' > 'ℎ'
+    'planck/' > 'ℏ'
+    'prae' > 'ꝕ' 
+    'Prae' > 'Ꝕ'
+    'PRAE' > 'Ꝕ'
+    'pro' > 'ꝓ' 
+    'Pro' > 'Ꝓ'
+    'PRO' > 'Ꝓ'
+    '(p)' > '℗'
+    'qp' > 'ȹ'
+    "q'" > 'ꜫ'
+    "Q'" > 'Ꜫ'
+    'que' > 'ꝙ'
+    'Que' > 'Ꝙ'
+    'QUE' > 'Ꝙ'
+    'rl' > 'ɺ'
+    'lr' > 'ɺ'
+    'ɹl' > 'ɺ'
+    'resp' > '℟'
+    'response' > '℟'
+    'rm' > 'ꝵ'
+    'RM' > 'ꝶ'
+    'ꝛm' > 'ꝝ'
+    'ꝚM' > 'Ꝝ'
+    'rx' > '℞'
+    'RX' > '℞'
+    '(r)' > '®'
+    'ser' > 'ẜ'
+    'sk' > 'ẝ'
+    'sm' > '℠'
+    'SM' > '℠'
+    'ss' > 'ß'
+    'That' > 'Ꝥ'
+    'THAT' > 'Ꝥ'
+    'that' > 'ꝥ'
+    'theim' > 'ꝧ'
+    'Theim' > 'Ꝧ'
+    'THEIM' > 'Ꝧ'
+    'ts' > 'ʦ'
+    "ts'" > 'ꜯ'
+    "TS'" > 'Ꜯ'
+    'tʃ' > 'ʧ'
+    'tc' > 'ʨ'
+    'tɕ' > 'ʨ'
+    'tel' > '℡'
+    'TEL' > '℡'
+    'tm' > '™'
+    'TM' > '™'
+    'tum' > 'ꝷ'
+    'TZ' > 'Ꜩ'
+    'TƷ' > 'Ꜩ'
+    'Tz' > 'Ꜩ'
+    'Tʒ' > 'Ꜩ' 
+    'tz' > 'ꜩ'
+    'tʒ' > 'ꜩ'
+    "t'" > 'ŧ'
+    "T'" > 'Ŧ'                
+    'ue' > 'ᵫ'
+    'um' > 'ꝸ'
+    'uo' > 'ꭣ'
+    'ver' > 'ꝟ'
+    'Ver' > 'Ꝟ'
+    'VER' > 'Ꝟ'
+    'vers' > '℣'
+    'versicle' > '℣'
+    'VY' > 'Ꝡ'
+    'vy' > 'ꝡ'
+    'ww' > 'ʬ'
+    'YR' > 'Ʀ'
+     
+   
+    'a/c' > '℀'
+    'a/s' > '℁'
+    'A/S' > '⅍'
+    'c/o' > '℅'
+    'c/u' > '℆'
+    
+    '0/00' > '‰'
+    '0/000' > '‱'
+    '0/3' > '↉'
+    '1/2' > '½'
+    '1/3' > '⅓'
+    '2/3' > '⅔'
+    '1/4' > '¼'
+    '3/4' > '¾'
+    '1/5' > '⅕'
+    '2/5' > '⅖'
+    '3/5' > '⅗'
+    '4/5' > '⅘'
+    '1/6' > '⅙'
+    '5/6' > '⅚'
+    '1/7' > '⅐'
+    '1/8' > '⅛' 
+    '3/8' > '⅜'
+    '5/8' > '⅝'
+    '7/8' > '⅞'
+    '1/9' > '⅑'
+    '1/10' > '⅒'
+    
+    '??' > '⁇'
+    '?!' > '⁈'
+    '!?' > '‽'
+    '‽' > '⁉'
+    '!!' > '‼'
+    '[[' > 'ʭ'
+    ')(' > '꭛'
+    '()' > '꭛'
+    './.' > '⁒'
+    '⁒' > '÷'
+    '+-' > '±'
+    "''" > 'ꜣ'
+    '""' > 'Ꜣ'
+    '||' > '‖'
+    ',' > '′'
+    ',,' > '″'
+    ',,,' > '‴'
+    '**' > '⁑'
+    '***' > '⁂'
+    c ℎℏ
+
+c 8* K_8: Ring, Ring Below
+group (RingAbove)
+    any(RingLetters) > index(Ring, 1)
+    notany(Ring) > context(1) U+030A
+    U+0308 > U+1AB1 c Diaresis-Ring
+    any(Dot) > index(DotLetters, 1) U+1AB1 c Diaresis-Ring 
+    
+group (RingBelow)
+    any(RingBelowLetters) > index(RingBelow, 1)
+    notany(RingBelow) > context(1) U+0325  
+    
+c 9( K_9: Breve, Breve Below, Right Half Ring, Right Half Ring Below, DblBreve, DblBreve Below
+group (BreveAbove)
+    store(BreveLetters) outs(BaseVowels) 'gG' 'áÁàÀảẢãÃạẠȩȨ'     
+    store(Breve) 'ăĕĭŏŭĂĔĬŎŬğĞ' 'ắẮằẰẳẲẵẴặẶḝḜ'           
+    any(BreveLetters) > index(Breve, 1)              
+    notany(Breve) > context(1) U+0306 
+    
+group (BreveBelow)
+    store(BreveBelowLetters) 'hH'
+    store(BreveBelow) 'ḫḪ'
+    any(BreveBelowLetters) > index(BreveBelow, 1)
+    notany(BreveBelow) > context(1)  U+032E 
+
+group (RightRingAbove)
+    store(RightRingLetters) 'a'
+    any(RightRingLetters) > 'ẚ'
+    notany(RightRingLetters) > context(1) U+0357  
+
+c 0) K_0: Inverted Breve, Inverted Breve Below, Left Half Ring, Left Half Ring Below, Dbl Inverted Breve
+group (InvertedBreveAbove)
+    store(InvertedBreveLetters) outs(BaseVowels) 'rR'       
+    store(InvertedBreve) 'ȃȇȋȏȗȂȆȊȎȖȓȒ' 
+    any(InvertedBreveLetters) > index(InvertedBreve, 1)
+    notany(InvertedBreveLetters) > context(1) U+0311 
+    
+c -_ K_MINUS: Minus, Minus Below, Left Tack Below, Down Tack Below, Equals Above, Equals Below
+
+c =+ K_EQUAL: Plus Below, Right Tack Below, Up Tack Below
+
+c [{ K_LBRKT: Inverted Bridge Below, Hook, Retroflex 
+group (HookTransform)
+    store(HookLetters) outs(BaseCharacters) 'ɖəɜɢɟꜧɥɭᵲʋꭗχ' 'ʰᵘ'
+    store(Hook) 'aɓƈɗⱸƒɠɦiʄƙɬɱŋoƥʠɾsƭʋⱱⱳxƴȥAƁƇƊEƑƓꞪIJƘꞭⱮŊOƤQRSƬƲVⱲXƳȤ' 'ᶑɚɝʛʄɧʮꞎᵳꭒꭙꭕ' 'ʱꭟ'
+    any(HookLetters) > index(Hook, 1)
+
+group (RetroflexTransform)
+    store(RetroflexHookLetters) outs(BaseVowels) 'dDfFlnqQrRstTz' 'ɑɗəɛɜɥʮɬɔɹɺʀʃᶚʒ' 'ʴˢᶻ'
+    store(RetroflexHook) 'ᶏᶒᶖᶗᶙᶏᶒᶖᶗᶙ' 'ɖƉƒƑɭɳɋɊɽⱤʂʈƮʐ' 'ᶐᶑᶕᶓᶔʯʯꞎᶗɻⱹꭆᶘƺᶚ' 'ʵᶳᶼ'
+    any(RetroflexHookLetters) > index(RetroflexHook, 1)
+    notany(RetroflexHook) > context(1)  U+0322 
+
+c ]} K_RBRKT: Bridge, Bridge Below, FlourishTransform, PalatalTransform
+group (DescenderTransform)
+    store(DescenderLetters) 'efhHkKlLnNorsuxyzZ' 'ɸⱶⱵꬷꬸꞑꞐᴖᴗꭇꭈꭅɽʀƨ' 'ˡꭝ'
+    store(Descender) 'ꬲꬵⱪⱩⱶⱵꬷꝆꞑꞐᴖꭇᴤꭎꭗꭚⱬⱫ' 'ⱷⱨⱧꬸꝇƞȠᴗꬽꭈꭅɼɼꭆᴤ' 'ꭝꭞ'
+    any(DescenderLetters) > index(Descender, 1)
+
+group (PalatalTransform)
+    store(PalatalHookLetters) outs(BaseLCaseCharacters) 'ꜧɦɲʃ' 'NH' 'ˡᵗ'
+    store(PalatalHook) 'aᶀꞔᶁeᶂᶃꜧijᶄᶅᶆɲoᶈqᶉᶊƫuᶌwᶍyᶎ' 'ꞕɧᶇᶋ' 'ƝꜦ' 'ᶪᶵ'  
+    any(PalatalHookLetters) > index(PalatalHook, 1)
+    notany(PalatalHook) > context(1) U+0321 
+    
+c \| BKSLASH: Macron, Macron Below, Stroke Through, Connecting Macron, Connecting Macron Below
+group (MacronAbove)
+    store(MacronLetters) outs(BaseVowels) 'gGlLrRyY' 'ȧȦäÄéÉèÈḷḶǫǪȯȮöÖõÕóÓòÒṛṚüÜǖǕ'  
+    store(Macron) 'āēīōūĀĒĪŌŪ' 'ḡḠḹḸṝṜȳȲ' 'ǡǠǟǞḗḖḕḔḹḸǭǬȱȰȫȪȭȬṓṒṑṐṝṜǖǕṻṺ'
+    any(MacronLetters) > index(Macron, 1)
+    notany(Macron) > context(1) U+0304  
+
+group (MacronBelow)
+    store(MacronBelowLetters)'bBdDhkKlLnNrRtTzZ'
+    store(MacronBelow) 'ḇḆḏḎẖḵḴḻḺṉṈṟṞṯṮẕẔ'
+    any(MacronBelowLetters) > index(MacronBelow, 1)
+    notany(MacronBelow) > context(1) U+0331 
+                                          
+group (StrokeThrough)
+    store(StrokeLetters) outs(BaseCharacters) 'ɑꜹꜸɔɪɩɟꝁꝀλóÓᴑꬽſþÞʊᴜꭎꭃ' 'ʖɁʔʕ25Ƽ'   
+    store(Stroke) 'ⱥƀȼđɇꞙǥħɨɟꝁłmꞥøᵽꝗɍꞩŧʉꝟwxɏƶȺɃȻĐɆꞘǤĦƗɈꝀŁMꞤØⱣꝖɌꞨŦɄꝞWXɎƵ' 'ꬰꜻꜺꬿᵻᵼɉꝅꝄƛǿǾᴓꬾẜꝥꝤᵿᵾꭏꭄ' 'ƾʡʡʢƻƼƽ'
+    any(StrokeLetters) > index(Stroke, 1)
+    notany(Stroke) > context(1)  U+0337 
+    c  ᵺꭁ 
+
+c ;: K_COLON: Comma, Comma Below, Horn, Ogonek
+group (CommaBelow)
+    store(CommaBelowLetters) 'sStT' 'ꜭꜬ'
+    store(CommaBelow) 'șȘțȚ' 'ꜯꜮ'
+    any(CommaBelowLetters) > index(CommaBelow, 1)
+    notany(CommaBelow) > context(1) U+0326 
+    
+group (HornTransform)
+    store(HornLetters) 'oOuU' 'óÓòÒỏỎõÕọỌúÚùÙủỦũŨụỤ'              
+    store(Horn) 'ơƠưƯ' 'ớỚờỜởỞỡỠợỢứỨừỪửỬữỮựỰ'                       
+    any(HornLetters) > index(Horn, 1)
+    notany(Horn) > context(1)  U+031B 
+
+group (OgonekTransform)
+    store(OgonekLetters) outs(BaseVowels) 'ōŌ' 
+    store(Ogonek) 'ąęįǫųĄĘĮǪŲ' 'ǭǬ'
+    any(OgonekLetters) > index(Ogonek, 1)                          
+    notany(Ogonek) > context U+0328 
+                                                          
+c '" QUOTE: Acute, Acute Below, Bar, Double Acute, Double Acute Below    úÚ
+group (AcuteAbove)                                                                  
+    any(AcuteLetters) > index(Acute, 1)
+    notany(Acute) > context(1)  U+0301             
+    U+0308 > U+1DC1 c Dotted Acute
+    any(Dot) > index(DotLetters, 1) U+1DC1 c Dotted Acute
+    
+group (BarTransform)
+    store(BarLetters)'abBcCdDefgGkKlLoOpPqQrRtTuU' 'ꝃꝂꝅꝄƚȽⱡⱠɵƟſþÞ'      
+    store(Bar) 'ꬰƃƂꞓꞒƌƋꬳẜꞡꞠꝃꝂƚȽɵƟꝑꝐꝙꝘꞧꞦⱦȾꞹꞸ' 'ꝅꝄꞣꞢⱡⱠꝉꝈꝋꝊẝꝧꝦ'
+    any(BarLetters) > index(Bar, 1)
+    notany(Bar) > context(1) U+0335 
+    c cᶱᶶᶿꬰꭏ  Ꜻꜻꭂ 
+    
+c ,< K_COMMA: Hook, Cedilla, Caron, Caron Below     
+group (HookAbove)
+    store(HookDiacriticLetters) outs(BaseVowels) 'yY' 'âÂăĂêÊôÔơƠưƯ' 
+    Store(HookDiacritic) 'ảẻỉỏủẢẺỈỎỦ' 'ỷỶ' 'ẩẨẳẲểỂổỔởỞửỬ'      
+    any(HookDiacriticLetters) > index(HookDiacritic, 1)
+    notany(HookDiacritic) > context U+0309                        
+    	
+group (CedillaBelow)
+     store(CedillaLetters) 'cCdDeEgGhHkKlLnNrRsStT' 'ćĆĕĔ'      
+     store(Cedilla) 'çÇḑḐȩȨģĢḩḨķĶļĻņŅŗŖşŞţŢ' 'ḉḈḝḜ'
+     any(CedillaLetters) > index(Cedilla, 1)                  
+     notany(Cedilla) > context  U+0327 
+
+group (CaronAbove)
+     store(CaronLetters) outs(BaseCharacters) 'ʒƷ' 'üÜṡṠ'               
+     store(Caron)'ǎbčďěfǧȟǐǰǩľmňǒpqřšťǔvwxyžǍBČĎĚFǦȞǏJǨĽMŇǑPQŘŠŤǓVWXYŽ' 'ǯǮ' 'ǚǙṧṦ'     
+     any(CaronLetters) > index(Caron, 1)
+     notany(Caron) > context(1) U+030C    
+                                                                            
+                                                                           
+c .> K_PERIOD: Dot, Dot Below, Circumflex, Circumflex Below, Umlaut, Umlaut Below    ȧȦäÄüÜ  
+group (DotAbove)                                                                                   
+    any(DotLetters) > index(Dot, 1)                                
+    notany(Dot) > context(1)  U+0307
+    U+030A > U+1AB1 c Diaresis-Ring
+    any(Ring) > index(RingLetters, 1) U+1AB1 c Diaresis-Ring                   
+    U+0301 > U+1DC1 c Dotted Acute
+    any(Acute) > index(AcuteLetters, 1) U+1DC1 c Dotted Acute
+    U+0300 > U+1DC0 c Dotted Grave
+    any(Grave) > index(GraveLetters, 1) U+1DC0 c Dotted Grave
+                                                        
+group (DotBelow)
+     store(DotBelowLetters) outs(BaseCharacters)'ụỤ' 'âÂăĂêÊôÔơƠṡṠưƯ'       
+     store(DotBelow) 'ạḅcḍẹfgḥịjḳḷṃṇọpqṛṣṭụṿẉxỵẓẠḄCḌẸFGḤỊJḲḶṂṆỌPQṚṢṬỤṾẈXỴẒ' 'ṳṲ' 'ậẬặẶệỆộỘợỢṩṨựỰ'
+     any(DotBelowLetters) > index(DotBelow, 1)
+     notany(DotBelow) > context(1)  U+0323 
+                                 
+group (CircumflexAbove)         
+    store(CircumflexLetters) outs(BaseVowels) 'cCgGhHjJsSwWyYzZ' 'áÁàÀảẢãÃạẠéÉèÈẻẺẽẼẹẸóÓòÒỏỎõÕọỌ'          
+    store(Circumflex) 'âêîôûÂÊÎÔÛ' 'ĉĈĝĜĥĤĵĴŝŜŵŴŷŶẑẐ' 'ấẤầẦẩẨẫẪậẬếẾềỀểỂễỄệỆốỐồỒổỔỗỖộỘ'  
+    any(CircumflexLetters) > index(Circumflex, 1)
+    notany(Circumflex) > context(1)   U+0302 
+                                                
+group (CircumflexBelow)
+    store(CircumflexBelowLetters) 'dDeElLnNtTuU'
+    store(CircumflexBelow) 'ḓḒḙḘḽḼṋṊṱṰṷṶ'
+    any(CircumflexBelowLetters) > index(CircumflexBelow, 1)
+    notany(CircumflexBelow) > context(1) U+032D 
+
+c /? K_STROKE: Greek Characters, European Characters, Irish Characters
+group (GreekTransform) 
+    store(GreekLetters) outs(BaseCharacters) '?.&' ";'‘’" '*†‡' ',′″' '^‸' '[]{}' ':"“”„‟‹›' '|¦‖' '%‰'
+    store(Greek) 'ɑβξẟɛɸɣhɩjψλμνωπqρʃθʊʋωχyʒⱭꞴΞΔƐΦƔꞪƖJΨΛΜΝΩΠQΡƩΘƱƲꞶꞳYƷ' 'ʔ‧⁊' '‘’‚‛' '†‡※' '′″‴' '‸⁁' '⁅⁆¶§' '“”„‟‹›«»' '¦‖|' '‰‱'
+    any(GreekLetters) > index(Greek, 1)
+ 
+group (EuropeanTransform)
+    store(EuropeanLetters) 'adegklqrstuvwyzDGIKLMQRTUVWYZ' 'ɤʚɞƿ' "?'ˑ:&ꝫ" '"'
+    store(European) 'ɤðʚɡꜭỻꜫꝛſþꝩỽƿȝꝣÐꞬꟾꜬỺꟿꜪꝚÞꝨỼǷȜꝢ' 'ᴥɞɷɷ' 'ʔˑꞌːꞋꝫꝪ'    
+    any(EuropeanLetters) > index(European, 1)
+    
+group (GaelicTransform) 
+    store(GaelicLetters) 'dfgrstDFGRST'       
+    store(Gaelic) 'ꝺꝼᵹꞃꞅꞇꝹꝻꝽꞂꞄꞆ'
+    any(GaelicLetters) > index(Gaelic, 1)

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<KeymanDeveloperProject>
+  <Options>
+    <BuildPath>$PROJECTPATH\build</BuildPath>
+    <CompilerWarningsAsErrors>True</CompilerWarningsAsErrors>
+    <WarnDeprecatedCode>True</WarnDeprecatedCode>
+  </Options>
+  <Files>
+    <File>
+      <ID>id_d9e3bc42ec0bc73ff02daf6f0b9bfc51</ID>
+      <Filename>IPAWriteAnything.kmn</Filename>
+      <Filepath>source\IPAWriteAnything.kmn</Filepath>
+      <FileVersion>1.0</FileVersion>
+      <FileType>.kmn</FileType>
+      <Details/>
+    </File>
+    <File>
+      <ID>id_ec495a3bb255efd17b64d8222c9fb3fb</ID>
+      <Filename>IPAKeyboard.kps</Filename>
+      <Filepath>source\IPAKeyboard.kps</Filepath>
+      <FileVersion>1.0</FileVersion>
+      <FileType>.kps</FileType>
+      <Details>
+        <Name>IPAKeyboard</Name>
+        <Copyright>©2018 Kris Peters</Copyright>
+        <Version>1.0</Version>
+      </Details>
+    </File>
+    <File>
+      <ID>id_219c5d4111c87d1fc71596b47e79fb56</ID>
+      <Filename>ipaWE.ico</Filename>
+      <Filepath>source\ipaWE.ico</Filepath>
+      <FileVersion></FileVersion>
+      <FileType>.ico</FileType>
+      <ParentFileID>id_d9e3bc42ec0bc73ff02daf6f0b9bfc51</ParentFileID>
+    </File>
+    <File>
+      <ID>id_45a3a104163dbb92b323e2f99be72e82</ID>
+      <Filename>IPAKeyboard.kmn</Filename>
+      <Filepath>source\IPAKeyboard.kmn</Filepath>
+      <FileVersion>1.0</FileVersion>
+      <FileType>.kmn</FileType>
+      <ParentFileID>id_ec495a3bb255efd17b64d8222c9fb3fb</ParentFileID>
+      <Details>
+        <Name>IPA Write Everything</Name>
+        <Copyright>© 2018 Kris Peters</Copyright>
+      </Details>
+    </File>
+    <File>
+      <ID>id_219c5d4111c87d1fc71596b47e79fb56</ID>
+      <Filename>ipaWE.ico</Filename>
+      <Filepath>source\ipaWE.ico</Filepath>
+      <FileVersion></FileVersion>
+      <FileType>.ico</FileType>
+      <ParentFileID>id_ec495a3bb255efd17b64d8222c9fb3fb</ParentFileID>
+    </File>
+  </Files>
+</KeymanDeveloperProject>
