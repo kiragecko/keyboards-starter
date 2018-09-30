@@ -22,12 +22,6 @@
   </Info>
   <Files>
     <File>
-      <Name>IPAKeyboard.kmn</Name>
-      <Description>File IPAKeyboard.kmn</Description>
-      <CopyLocation>0</CopyLocation>
-      <FileType>.kmn</FileType>
-    </File>
-    <File>
       <Name>ipaWE.ico</Name>
       <Description>File ipaWE.ico</Description>
       <CopyLocation>0</CopyLocation>

@@ -79,6 +79,8 @@ c [
 + [ CTRL ']' ] > context U+0346 c use(BridgeAbove)
 + [ CTRL '\' ] > context use(MacronAbove)
 + [ CTRL ';' ] > context  U+0313  c use(CommaAbove)
+   U+0313 + [ CTRL ';' ] > context  U+0314 c use(CommaAbove)
+   U+0314 + [ CTRL ';' ] > context  U+0312 
 + [ CTRL "'" ] > context use(AcuteAbove)
 + [ CTRL ',' ] > context use(HookAbove)
 + [ CTRL '.' ] > context use(DotAbove)
@@ -832,7 +834,8 @@ group (OgonekTransform)
 c '" QUOTE: Acute, Acute Below, Bar, Double Acute, Double Acute Below    úÚ
 group (AcuteAbove)                                                                  
     any(AcuteLetters) > index(Acute, 1)
-    notany(Acute) > context(1)  U+0301             
+    notany(Acute) > context(1)  U+0301 
+    'j' > context(1)  U+0301            
     U+0308 > U+1DC1 c Dotted Acute
     any(Dot) > index(DotLetters, 1) U+1DC1 c Dotted Acute
     
