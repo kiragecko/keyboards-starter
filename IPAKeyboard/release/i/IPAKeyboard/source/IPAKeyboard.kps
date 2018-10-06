@@ -27,7 +27,20 @@
       <CopyLocation>0</CopyLocation>
       <FileType>.ico</FileType>
     </File>
+    <File>
+      <Name>..\build\IPAKeyboard.kmx</Name>
+      <Description>Keyboard IPA Keyboard</Description>
+      <CopyLocation>0</CopyLocation>
+      <FileType>.kmx</FileType>
+    </File>
   </Files>
-  <Keyboards/>
+  <Keyboards>
+    <Keyboard>
+      <Name>IPA Keyboard</Name>
+      <ID>ipakeyboard</ID>
+      <Version>1.0</Version>
+      <Languages/>
+    </Keyboard>
+  </Keyboards>
   <Strings/>
 </Package>
